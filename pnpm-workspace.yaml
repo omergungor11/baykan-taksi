@@ -1,0 +1,6 @@
+# Bu proje bağımsız bir workspace köküdür (üst dizindeki yoğurt projesinden ayrı).
+# Boş bırakılması pnpm'in yukarı doğru üst workspace'i bulmasını engeller.
+packages: []
+
+onlyBuiltDependencies:
+  - sharp
