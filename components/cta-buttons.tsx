@@ -60,7 +60,7 @@ export function CallButton({ className, source, label, variant = "call", size }:
       href={telUrl()}
       onClick={() => trackCallClick(source)}
       className={cn(button({ variant, size }), className)}
-      aria-label={label ?? `Telefonla ara: +${siteConfig.phone}`}
+      aria-label={label ?? `Telefonla ara: ${siteConfig.phoneDisplay}`}
     >
       <Phone className="size-5" aria-hidden />
       {label ?? "Hemen Ara"}

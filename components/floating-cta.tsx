@@ -15,7 +15,7 @@ export function FloatingCta({ message, callLabel }: { message?: string; callLabe
       <a
         href={telUrl()}
         onClick={() => trackCallClick("floating")}
-        aria-label={callLabel ?? `Telefonla ara: +${siteConfig.phone}`}
+        aria-label={callLabel ?? `Telefonla ara: ${siteConfig.phoneDisplay}`}
         className="flex size-14 items-center justify-center rounded-full bg-brand text-brand-foreground shadow-lg shadow-black/20 transition-transform hover:scale-105 md:hidden"
       >
         <Phone className="size-6" aria-hidden />

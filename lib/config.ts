@@ -11,9 +11,11 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kibrislefkosataksi.com",
   domain: "kibrislefkosataksi.com",
 
-  // İletişim — TODO: gerçek numara müşteriden gelince güncelle (uluslararası, + olmadan)
-  phone: process.env.NEXT_PUBLIC_PHONE ?? "903921234567",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "903921234567",
+  // İletişim — uluslararası, + olmadan (tel:/wa.me için rakam hâli)
+  phone: process.env.NEXT_PUBLIC_PHONE ?? "905338366309",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP ?? "905338366309",
+  // Ekranda gösterilen okunaklı format
+  phoneDisplay: process.env.NEXT_PUBLIC_PHONE_DISPLAY ?? "+90 533 836 63 09",
   email: "info@kibrislefkosataksi.com",
 
   // Konum (Lefkoşa / Nicosia, KKTC) — yerel SEO için

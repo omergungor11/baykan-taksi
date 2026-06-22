@@ -32,7 +32,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
             className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-brand"
           >
             <Phone className="size-3.5 text-brand" aria-hidden />
-            +{siteConfig.phone}
+            {siteConfig.phoneDisplay}
           </a>
         </div>
       </div>

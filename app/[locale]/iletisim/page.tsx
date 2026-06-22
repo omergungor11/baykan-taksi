@@ -68,7 +68,7 @@ export default async function ContactPage({
               </span>
               <span>
                 <span className="block font-bold text-ink">{dict.common.callUs}</span>
-                <span className="text-sm text-ink-muted">+{siteConfig.phone}</span>
+                <span className="text-sm text-ink-muted">{siteConfig.phoneDisplay}</span>
               </span>
             </a>
             <div className="flex items-center gap-4 rounded-2xl border bg-surface p-5">
