@@ -4,11 +4,13 @@
 /*
   Kıbrıs Lefkoşa Taksi — tasarım sistemi
   Taksi tanınırlığı: sarı (#FACC15) + koyu lacivert/siyah.
+  Tipografi: Plus Jakarta Sans (başlık) + Inter (gövde).
 */
 
 @theme {
   --color-brand: #facc15; /* taksi sarısı */
   --color-brand-dark: #eab308;
+  --color-brand-light: #fde68a;
   --color-brand-foreground: #0b1220;
 
   --color-ink: #0b1220; /* koyu lacivert/siyah */
@@ -21,10 +23,16 @@
   --color-wa: #25d366; /* WhatsApp yeşili */
   --color-wa-dark: #1ebe5d;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--ff-display), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
 
   --radius: 0.75rem;
+
+  --shadow-brand: 0 10px 30px -10px rgba(250, 204, 21, 0.45);
+  --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04),
+    0 12px 32px -16px rgba(11, 18, 32, 0.18);
 }
 
 :root {
@@ -48,6 +56,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Başlıklar display font + sıkı tracking ile */
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
 /* Yardımcı: bölüm konteyneri */
 .container-x {
   width: 100%;
@@ -60,4 +79,50 @@ body {
   .container-x {
     padding-inline: 2rem;
   }
+}
+
+/* Taksi dama deseni — marka motifi (ince şerit olarak kullanılır) */
+.taxi-checker {
+  background-image:
+    linear-gradient(45deg, var(--color-brand) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-brand) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-brand) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-brand) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* Hafif noktalı arka plan dokusu */
+.dot-grid {
+  background-image: radial-gradient(
+    rgba(148, 163, 184, 0.25) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Görsel üstü okunabilirlik için degrade overlay */
+.overlay-ink {
+  background: linear-gradient(
+    to right,
+    rgba(11, 18, 32, 0.92) 0%,
+    rgba(11, 18, 32, 0.78) 45%,
+    rgba(11, 18, 32, 0.45) 100%
+  );
+}
+
+/* Yumuşak yukarı-kayma giriş animasyonu */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

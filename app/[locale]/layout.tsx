@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "@/app/globals.css";
+import { display, body } from "@/lib/fonts";
 import { locales, isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { siteConfig } from "@/lib/config";
@@ -40,7 +41,7 @@ export default async function LocaleLayout({
   const dict = await getDictionary(typedLocale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${display.variable} ${body.variable}`}>
       <body>
         <AnalyticsScripts />
         <TaxiServiceJsonLd />

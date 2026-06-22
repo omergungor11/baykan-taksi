@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, MapPin, ArrowRight, Route } from "lucide-react";
@@ -8,6 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/config";
 import { areaSlugs, getArea } from "@/lib/content/areas";
 import { t } from "@/lib/content/types";
+import { ctaBgImage } from "@/lib/content/images";
 import { Section, SectionHeading } from "@/components/section";
 import { Faq } from "@/components/faq";
 import { CtaPair } from "@/components/cta-buttons";
@@ -60,20 +62,34 @@ export default async function AreaPage({
       <FaqJsonLd items={faqItems} />
 
       {/* Hero */}
-      <section className="bg-ink text-white">
-        <div className="container-x py-12 md:py-16">
-          <nav className="mb-3 text-sm text-slate-400">
+      <section className="relative isolate overflow-hidden bg-ink text-white">
+        <Image
+          src={ctaBgImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          placeholder="blur"
+          className="object-cover object-center opacity-35"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/55" aria-hidden />
+        <div className="taxi-checker absolute bottom-0 left-0 h-2 w-full" aria-hidden />
+        <div className="container-x relative py-14 md:py-20">
+          <nav className="mb-3 text-sm text-slate-300">
             <Link href={localizedPath(typedLocale, "/")} className="hover:text-brand">
               {dict.nav.home}
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-slate-300">{t(data.keyword, typedLocale)}</span>
+            <span className="text-slate-200">{t(data.keyword, typedLocale)}</span>
           </nav>
-          <h1 className="max-w-3xl text-3xl font-extrabold leading-tight md:text-4xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/15 px-3 py-1 text-sm font-bold text-brand">
+            <MapPin className="size-4" aria-hidden /> {siteConfig.geo.city}
+          </span>
+          <h1 className="mt-4 max-w-3xl text-3xl font-extrabold leading-tight md:text-5xl">
             {t(data.h1, typedLocale)}
           </h1>
           <div className="mt-6">
-            <CtaPair source={`area-${area}`} message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} />
+            <CtaPair source={`area-${area}`} message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} onDark />
           </div>
         </div>
       </section>

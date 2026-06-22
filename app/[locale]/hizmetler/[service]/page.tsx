@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 import { isLocale, localizedPath, type Locale } from "@/lib/i18n/config";
@@ -7,6 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/config";
 import { serviceSlugs, getService } from "@/lib/content/services";
 import { t } from "@/lib/content/types";
+import { getServiceImage } from "@/lib/content/images";
 import { Section, SectionHeading } from "@/components/section";
 import { Icon } from "@/components/icon";
 import { Faq } from "@/components/faq";
@@ -61,15 +63,26 @@ export default async function ServicePage({
       <FaqJsonLd items={faqItems} />
       <ServiceJsonLd name={t(data.title, typedLocale)} description={t(data.description, typedLocale)} url={url} />
 
-      <section className="bg-ink text-white">
-        <div className="container-x py-12 md:py-16">
-          <div className="mb-4 inline-flex size-14 items-center justify-center rounded-2xl bg-brand text-brand-foreground">
+      <section className="relative isolate overflow-hidden bg-ink text-white">
+        <Image
+          src={getServiceImage(service)}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          placeholder="blur"
+          className="object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/55" aria-hidden />
+        <div className="taxi-checker absolute bottom-0 left-0 h-2 w-full" aria-hidden />
+        <div className="container-x relative py-14 md:py-20">
+          <div className="mb-4 inline-flex size-14 items-center justify-center rounded-2xl bg-brand text-brand-foreground shadow-brand">
             <Icon name={data.icon} className="size-7" />
           </div>
-          <h1 className="text-3xl font-extrabold md:text-4xl">{t(data.title, typedLocale)}</h1>
-          <p className="mt-3 max-w-2xl text-lg text-slate-300">{t(data.shortDesc, typedLocale)}</p>
+          <h1 className="text-3xl font-extrabold md:text-5xl">{t(data.title, typedLocale)}</h1>
+          <p className="mt-3 max-w-2xl text-lg text-slate-200">{t(data.shortDesc, typedLocale)}</p>
           <div className="mt-6">
-            <CtaPair source={`service-${service}`} message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} />
+            <CtaPair source={`service-${service}`} message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} onDark />
           </div>
         </div>
       </section>

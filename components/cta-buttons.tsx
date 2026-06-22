@@ -16,6 +16,8 @@ const button = cva(
         call: "bg-brand text-brand-foreground hover:bg-brand-dark focus-visible:ring-brand",
         outline:
           "border-2 border-ink text-ink hover:bg-ink hover:text-white focus-visible:ring-ink",
+        outlineLight:
+          "border-2 border-white/70 text-white hover:bg-white hover:text-ink focus-visible:ring-white",
       },
       size: {
         sm: "h-10 px-4 text-sm rounded-lg",
@@ -74,6 +76,7 @@ export function CtaPair({
   className,
   waLabel,
   callLabel,
+  onDark,
 }: {
   source: string;
   message?: string;
@@ -81,11 +84,18 @@ export function CtaPair({
   className?: string;
   waLabel?: string;
   callLabel?: string;
+  /** Koyu arka plan üzerinde açık renkli "Ara" outline butonu kullan */
+  onDark?: boolean;
 }) {
   return (
     <div className={cn("flex flex-col sm:flex-row gap-3", className)}>
       <WhatsappButton source={source} message={message} size={size} label={waLabel} />
-      <CallButton source={source} size={size} variant="outline" label={callLabel} />
+      <CallButton
+        source={source}
+        size={size}
+        variant={onDark ? "outlineLight" : "outline"}
+        label={callLabel}
+      />
     </div>
   );
 }

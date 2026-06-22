@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { isLocale, localizedPath, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/config";
 import { t, type L10n } from "@/lib/content/types";
+import { aboutImage } from "@/lib/content/images";
 import { Section, SectionHeading } from "@/components/section";
+import { StatsBar } from "@/components/stats-bar";
 import { CtaPair } from "@/components/cta-buttons";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 
@@ -59,16 +62,37 @@ export default async function AboutPage({
         ]}
       />
       <Section>
-        <SectionHeading title={t(content.title, typedLocale)} />
-        <div className="max-w-3xl space-y-4 text-lg leading-relaxed text-ink-soft">
-          {content.body.map((p, i) => (
-            <p key={i}>{t(p, typedLocale)}</p>
-          ))}
-        </div>
-        <div className="mt-10">
-          <CtaPair source="about" message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} />
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <SectionHeading
+              kicker={dict.common.available247}
+              title={t(content.title, typedLocale)}
+            />
+            <div className="space-y-4 text-lg leading-relaxed text-ink-soft">
+              {content.body.map((p, i) => (
+                <p key={i}>{t(p, typedLocale)}</p>
+              ))}
+            </div>
+            <div className="mt-8">
+              <CtaPair source="about" message={dict.cta.whatsappMessage} size="lg" waLabel={dict.cta.callTaxi} callLabel={dict.cta.callNow} />
+            </div>
+          </div>
+          <div className="relative">
+            <div className="overflow-hidden rounded-3xl border shadow-card">
+              <Image
+                src={aboutImage}
+                alt={siteConfig.name}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="h-full w-full object-cover"
+                placeholder="blur"
+              />
+            </div>
+            <div className="taxi-checker absolute -bottom-3 -right-3 -z-10 h-24 w-24 rounded-2xl opacity-80" aria-hidden />
+          </div>
         </div>
       </Section>
+
+      <StatsBar dict={dict} />
     </>
   );
 }

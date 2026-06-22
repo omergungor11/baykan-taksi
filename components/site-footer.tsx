@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { Phone, MessageCircle, MapPin, Clock } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Clock, Car } from "lucide-react";
 import { localizedPath, type Locale } from "@/lib/i18n/config";
 import { mainNav } from "@/lib/i18n/navigation";
 import type { Dictionary } from "@/lib/i18n/dictionaries/tr";
 import { siteConfig, telUrl, whatsappUrl } from "@/lib/config";
+import { services } from "@/lib/content/services";
+import { t } from "@/lib/content/types";
 
 export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const nav = mainNav(dict);
@@ -11,14 +13,18 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
 
   return (
     <footer className="mt-16 bg-ink text-slate-300">
-      <div className="container-x grid gap-10 py-12 md:grid-cols-3">
+      <div className="taxi-checker h-1.5 w-full" aria-hidden />
+      <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="mb-3 flex items-center gap-2 font-extrabold text-white">
-            <span className="rounded-lg bg-brand px-2 py-1 text-brand-foreground">TAKSİ</span>
-            <span>{siteConfig.name}</span>
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-2.5 py-1.5 text-brand-foreground">
+              <Car className="size-5" aria-hidden />
+              <span className="font-display">TAKSİ</span>
+            </span>
+            <span>{siteConfig.shortName}</span>
           </div>
           <p className="text-sm leading-relaxed text-slate-400">{dict.footer.tagline}</p>
-          <div className="mt-4 flex items-center gap-2 text-sm">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-white/5 px-3 py-1.5 text-sm">
             <Clock className="size-4 text-brand" aria-hidden />
             {dict.common.available247}
           </div>
@@ -31,6 +37,22 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
               <li key={item.href}>
                 <Link href={localizedPath(locale, item.href)} className="hover:text-brand">
                   {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="mb-3 font-semibold text-white">{dict.footer.services}</h2>
+          <ul className="space-y-2 text-sm">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={localizedPath(locale, `/hizmetler/${s.slug}`)}
+                  className="hover:text-brand"
+                >
+                  {t(s.title, locale)}
                 </Link>
               </li>
             ))}

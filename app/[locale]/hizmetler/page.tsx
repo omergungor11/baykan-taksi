@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 import { isLocale, localizedPath, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/config";
 import { services } from "@/lib/content/services";
-import { t } from "@/lib/content/types";
 import { Section, SectionHeading } from "@/components/section";
-import { Icon } from "@/components/icon";
+import { ServiceCard } from "@/components/service-card";
 import { CtaPair } from "@/components/cta-buttons";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 
@@ -49,23 +46,14 @@ export default async function ServicesIndexPage({
         ]}
       />
       <Section>
-        <SectionHeading title={dict.common.ourServices} />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <SectionHeading
+          kicker={dict.common.ourServices}
+          title={dict.common.ourServices}
+          subtitle={dict.common.servicesSubtitle}
+        />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
-            <Link
-              key={s.slug}
-              href={localizedPath(typedLocale, `/hizmetler/${s.slug}`)}
-              className="group rounded-2xl border bg-surface p-6 transition-shadow hover:shadow-lg"
-            >
-              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-brand/15 text-ink">
-                <Icon name={s.icon} className="size-6" />
-              </div>
-              <h2 className="text-lg font-bold text-ink">{t(s.title, typedLocale)}</h2>
-              <p className="mt-1 text-sm text-ink-muted">{t(s.shortDesc, typedLocale)}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-ink group-hover:gap-2">
-                {dict.common.readMore} <ArrowRight className="size-4" aria-hidden />
-              </span>
-            </Link>
+            <ServiceCard key={s.slug} service={s} locale={typedLocale} readMore={dict.common.readMore} />
           ))}
         </div>
         <div className="mt-10">
