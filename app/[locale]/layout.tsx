@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FloatingCta } from "@/components/floating-cta";
 import { AnalyticsScripts } from "@/components/analytics-scripts";
+import { GtmNoscript } from "@/components/gtm-noscript";
 import { TaxiServiceJsonLd } from "@/components/json-ld";
 
 export function generateStaticParams() {
@@ -44,6 +45,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${display.variable} ${body.variable}`}>
       <body>
         <AnalyticsScripts />
+        <GtmNoscript />
         <TaxiServiceJsonLd />
         <SiteHeader locale={typedLocale} dict={dict} />
         <main className="min-h-[60vh]">{children}</main>
